@@ -4,9 +4,30 @@ const ctx = canvas.getContext("2d");
 const maxH = window.innerHeight - 100;
 const maxW = window.innerWidth - 100;
 
+let type = 0;
+let c1, c2, c3;
 board.width = maxW;
 board.height = maxH;
 let x1, x2, x3, y1, y2, y3, x, y;
+
+function getColor(choice) {
+	if (type === 1) {
+		switch (choice) {
+			case 1:
+				ctx.fillStyle = c1;
+				break;
+			case 2:
+				ctx.fillStyle = c2;
+				break;
+			case 3:
+				ctx.fillStyle = c3;
+				break;
+
+			default:
+				break;
+		}
+	}
+}
 
 function cordinatesXY() {
 	let choice = Math.floor(Math.random() * 3);
@@ -15,17 +36,19 @@ function cordinatesXY() {
 		case 0:
 			x = (x1 + x) / 2;
 			y = (y1 + y) / 2;
-			ctx.fillStyle = "red";
+			getColor(1);
 			break;
 		case 1:
 			x = (x2 + x) / 2;
 			y = (y2 + y) / 2;
-			ctx.fillStyle = "white";
+
+			getColor(2);
 			break;
 		case 2:
 			x = (x3 + x) / 2;
 			y = (y3 + y) / 2;
-			ctx.fillStyle = "green";
+
+			getColor(3);
 			break;
 		default:
 			break;
@@ -61,6 +84,25 @@ function genEqui() {
 	x = x1;
 	y = y1;
 
+	type = 1;
+	c1 =
+		"hsl(" +
+		360 * Math.random() +
+		",100%," +
+		(50 * Math.random() + 50) +
+		"%)";
+	c2 =
+		"hsl(" +
+		360 * Math.random() +
+		",100%," +
+		(50 * Math.random() + 50) +
+		"%)";
+	c3 =
+		"hsl(" +
+		360 * Math.random() +
+		",100%," +
+		(50 * Math.random() + 50) +
+		"%)";
 	choasBuild();
 }
 
@@ -74,5 +116,7 @@ function genRandom() {
 	y3 = Math.random() * maxH;
 	x = x1;
 	y = y1;
+	type = 0;
+	ctx.fillStyle = "hsl(" + 360 * Math.random() + ",100%,50%)";
 	choasBuild();
 }
