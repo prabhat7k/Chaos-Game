@@ -1,6 +1,8 @@
-canvas{
+.container{
+    display:block;
+}
 
-    
+canvas{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -9,8 +11,10 @@ canvas{
 }
 
 .controls{
+    display: flex;
     position: fixed;
     z-index: 10;
+    align-items: center;
 }
 
 .controls > button{

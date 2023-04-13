@@ -3,12 +3,18 @@ const ctx = canvas.getContext("2d");
 
 const maxH = window.innerHeight - 100;
 const maxW = window.innerWidth - 100;
+board.width = maxW;
+board.height = maxH;
+const f = Math.sqrt(2);
+// Triangle
 
 let type = 0;
 let c1, c2, c3;
-board.width = maxW;
-board.height = maxH;
 let x1, x2, x3, y1, y2, y3, x, y;
+
+function clearBoard() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function getColor(choice) {
 	if (type === 1) {
@@ -103,6 +109,7 @@ function genEqui() {
 		",100%," +
 		(50 * Math.random() + 50) +
 		"%)";
+
 	choasBuild();
 }
 
@@ -118,5 +125,60 @@ function genRandom() {
 	y = y1;
 	type = 0;
 	ctx.fillStyle = "hsl(" + 360 * Math.random() + ",100%,50%)";
+
 	choasBuild();
 }
+
+// H-Tree
+
+function hTree() {
+	document.querySelectorAll("button").forEach((e) => {
+		e.disabled = true;
+	});
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	async function hor(x, y, len) {
+		if (len < 2) {
+			document.querySelectorAll("button").forEach((e) => {
+				e.disabled = false;
+			});
+			return;
+		}
+
+		ctx.beginPath();
+		ctx.moveTo(x - len / 2, y);
+		ctx.lineTo(x + len / 2, y);
+		ctx.strokeStyle = "skyblue";
+		ctx.stroke();
+
+		ver(x - len / 2, y, len / f);
+		ver(x + len / 2, y, len / f);
+	}
+
+	function ver(x, y, len) {
+		if (len < 2) {
+			document.querySelectorAll("button").forEach((e) => {
+				e.disabled = false;
+			});
+			return;
+		}
+
+		ctx.beginPath();
+
+		ctx.moveTo(x, y - len / 2);
+		ctx.lineTo(x, y + len / 2);
+		ctx.strokeStyle = "skyblue";
+		ctx.stroke();
+		setTimeout(() => {
+			hor(x, y - len / 2, len / f);
+			hor(x, y + len / 2, len / f);
+		}, 1);
+	}
+
+	ctx.stokeStyle = "white";
+	hor(maxW / 2, maxH / 2, maxW / 2);
+}
+
+document.querySelectorAll("button").forEach((e) => {
+	e.disabled = false;
+});

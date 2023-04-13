@@ -10,16 +10,37 @@
 </head>
 
 <body>
+    <div class="container">
 
-    <div class="controls">
-        <button onclick="genRandom()">
-            Generate Random
-        </button>
-        <button onclick="genEqui()">
-            Generate Equilateral
-        </button>
+        <div class="controls">
+            <span>
+
+                <h1>Sierpiński triangle</h1>
+                <button onclick="genRandom()">
+                    Generate Random
+                </button>
+                <button onclick="genEqui()">
+                    Generate Equilateral
+                </button>
+            </span>
+
+
+
+            <span>
+                <h1>H-tree</h1>
+                <button onclick="hTree()">
+                    Generate H-tree
+                </button>
+            </span>
+            <span>
+                <button onclick="clearBoard()">
+                    Clear
+                </button>
+            </span>
+        </div>
     </div>
-    <canvas id="board" style="background-color: black;">
+
+    <canvas id="board" style="background-color: rgb(0, 0, 0);">
     </canvas>
     <script src="./script.js"></script>
 
