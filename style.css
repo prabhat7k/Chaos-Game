@@ -1,20 +1,17 @@
 .container{
     display:block;
+    text-align: center;
 }
 
 canvas{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 5vh;
 }
 
 .controls{
     display: flex;
-    position: fixed;
-    z-index: 10;
+    /* position: fixed;
+    z-index: 10; */
     align-items: center;
+    justify-content: center;
 }
 
 .controls > button{
