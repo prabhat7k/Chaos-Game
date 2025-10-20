@@ -11,196 +11,142 @@ This project demonstrates several classic fractals and iterative function system
 1. **Sierpiński Triangle (Chaos Game)**
 
    - A fractal with triangular symmetry
-   - Generated through random point plotting using midpoint algorithm
-   - Available in both random and equilateral configurations
+   - Two generation methods:
+     - Random vertices: Creates unique variations
+     - Equilateral: Creates perfect symmetrical pattern
+   - Parameters:
+     - Default iterations: 50,000
+     - Color: #00FF88 (Bright Green)
 
 2. **H-tree Fractal**
 
-   - A recursive geometric pattern
-   - Forms an H-shaped structure that branches into smaller H patterns
-   - Demonstrates self-similarity at different scales
+   - Recursive geometric pattern forming H-shaped structures
+   - Parameters:
+     - Default recursion depth: 7
+     - Color: #FFD700 (Golden)
+     - Size: Adapts to canvas dimensions
 
 3. **Barnsley Fern**
 
-   - An iterative function system (IFS) that creates a natural-looking fern
-   - Uses four affine transformations with different probabilities
-   - Produces a realistic plant-like structure
+   - IFS-based realistic fern pattern
+   - Uses four affine transformations:
+     - f1 (1%): Stem
+     - f2 (85%): Successive fronds
+     - f3 (7%): Left leaflets
+     - f4 (7%): Right leaflets
+   - Parameters:
+     - Default iterations: 100,000
+     - Color: #7CFC00 (Lime Green)
 
 4. **Mandelbrot Set**
-   - The famous mathematical set of points in the complex plane
-   - Features smooth coloring based on escape-time algorithm
-   - Adjustable iteration count for detail vs. performance
+
+   - Complex plane visualization
+   - Features:
+     - Smooth coloring algorithm
+     - HSL-based color mapping
+     - Adjustable detail level
+   - Parameters:
+     - Iterations: 50-5000 (default 800)
+     - Viewport: (-2.5,1) × (-1.25,1.25)
+     - Color: HSL gradient
+
+5. **Koch Snowflake**
+   - Recursive curve forming a snowflake pattern
+   - Features:
+     - Symmetric triangular base
+     - 60° angle peaks
+     - Recursive subdivision
+   - Parameters:
+     - Iterations: 0-7 (default 4)
+     - Color: #4169E1 (Royal Blue)
 
 ## Technical Implementation
 
 ### Files Structure
 
-- `index.html`
+- `index.html`: UI container and controls
+- `script.js`: Fractal implementations and canvas management
+- `style.css`: Layout and styling
 
-  - Main UI container
-  - Canvas element setup
-  - Control buttons and input elements
-  - Responsive layout structure
+### Canvas Features
 
-- `script.js`
+- Responsive sizing (max 1000×700 pixels)
+- Auto-resize on window changes
+- Black background (#000000)
 
-  - Core fractal implementations:
-    ```javascript
-    genRandom(iterations = 50000)      // Random Sierpiński
-    genEqui(iterations = 50000)        // Equilateral Sierpiński
-    drawChaosTriangle(verts, iter)     // Core triangle algorithm
-    hTree(order = 7)                   // H-tree generator
-    drawH(x, y, size, order)           // Recursive H-tree drawer
-    barnsleyFern(iterations = 100000)  // Fern IFS implementation
-    mandelbrot()                       // Mandelbrot set renderer
-    ```
-  - Canvas management:
-    ```javascript
-    resizeCanvas()    // Responsive sizing
-    clearBoard()      // Canvas reset
-    ```
+### Performance Optimization
 
-- `style.css`
-  - Responsive layout styling
-  - UI element formatting
-  - Canvas positioning and dimensions
+- Pixel-perfect rendering using rounded coordinates
+- Efficient ImageData usage for Mandelbrot set
+- Iteration limits to prevent browser hanging
 
-### Technical Features
+## Usage
 
-- **Canvas Management**
-
-  - Responsive sizing (max 1000x700 pixels)
-  - Automatic resizing on window changes
-  - Background clearing functionality
-
-- **Color Systems**
-  - Sierpiński: Single color (#00FF88)
-  - H-tree: Golden color (#FFD700)
-  - Barnsley Fern: Lime green (#7CFC00)
-  - Mandelbrot: HSL-based smooth coloring
-
-## Usage Guide
-
-### Setup
-
-1. Clone or download the repository
-2. Open in VS Code:
-   ```powershell
-   code e:\Hactoberfest\Chaos-Game
-   ```
-
-### Running the Project
-
-Choose one of these methods:
-
-1. **VS Code Live Server**
-
-   ```
-   Right-click index.html → Open with Live Server
-   ```
-
-2. **Python HTTP Server**
+1. **Setup**
 
    ```powershell
-   python -m http.server 8000
-   # Then open http://localhost:8000
+   git clone <repository-url>
+   cd Chaos-Game
+   code .
    ```
 
-3. **Direct Browser Opening**
-   ```powershell
-   start e:\Hactoberfest\Chaos-Game\index.html
-   ```
+2. **Running**
 
-### Interactive Controls
+   - Use VS Code Live Server, or
+   - Open index.html directly in browser
+
+3. **Controls**
+   - Generate fractals using respective buttons
+   - Adjust iterations where available
+   - Clear canvas between generations
+
+### Fractal-Specific Controls
 
 - **Sierpiński Triangle**
 
-  - "Generate Random": Creates random triangle vertices
-  - "Generate Equilateral": Creates symmetrical triangle
-  - Default: 50,000 iterations
-  - Customization: Modify `iterations` parameter in function calls
+  ```javascript
+  genRandom(iterations = 50000)
+  genEqui(iterations = 50000)
+  ```
 
-- **H-tree Fractal**
+- **H-tree**
 
-  - Single-click generation
-  - Order parameter controls depth (default: 7)
-  - Higher orders increase detail but slow rendering
+  ```javascript
+  hTree(order = 7)
+  ```
 
 - **Barnsley Fern**
 
-  - Single-click generation
-  - 100,000 default iterations
-  - Adjustable density via iteration count
+  ```javascript
+  barnsleyFern(iterations = 100000)
+  ```
 
 - **Mandelbrot Set**
-  - Adjustable iterations (50-5000)
-  - Input field for quality control
-  - Smooth color gradients
-  - Complex plane viewport: (-2.5, 1) × (-1.25, 1.25)
 
-## Performance Considerations
+  ```javascript
+  mandelbrot()  // iterations from UI input
+  ```
 
-- **CPU Usage**
-
-  - Heavy calculations run on main thread
-  - Large iteration counts may cause temporary UI freezing
-  - Consider reducing iterations for slower devices
-
-- **Memory Usage**
-  - Canvas size affects memory consumption
-  - Mandelbrot set uses ImageData for efficient rendering
-  - Cleared automatically between fractal generations
-
-## Optimization Tips
-
-1. **For Smooth Performance**
-
-   - Keep iteration counts below 100,000
-   - Reduce H-tree order for faster rendering
-   - Use moderate Mandelbrot iteration values (500-1000)
-
-2. **For Higher Quality**
-   - Increase iteration counts for denser patterns
-   - Use higher H-tree orders for more detail
-   - Boost Mandelbrot iterations for smoother gradients
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Blank Display**
-
-   - Check console (F12) for JavaScript errors
-   - Verify canvas element ID matches "board"
-   - Ensure all files are properly linked
-
-2. **Performance Issues**
-
-   - Reduce iteration counts
-   - Lower H-tree recursion order
-   - Check browser CPU usage
-   - Consider using a different browser
-
-3. **Display Glitches**
-   - Clear canvas between generations
-   - Refresh page if patterns overlap
-   - Check window size constraints
+- **Koch Snowflake**
+  ```javascript
+  kochSnowflake()  // iterations from UI input
+  ```
 
 ## Contributing
 
-1. Fork the repository
+1. Fork repository
 2. Create feature branch
-3. Implement changes
+3. Add features or improvements
 4. Submit pull request
 
 ### Suggested Contributions
 
-- Additional fractal patterns (Koch, Julia sets)
+- Additional fractals (Julia sets, Dragon curve)
 - Interactive parameter controls
 - Color scheme customization
-- Pattern animation
-- Touch/mobile support
+- Animation support
 - Pattern export functionality
+- Touch/mobile support
 
 ## License
 
