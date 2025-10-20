@@ -37,6 +37,15 @@
             </span>
 
             <span>
+                <h1>Mandelbrot set</h1>
+                <label for="mandelbrot-iter">Iterations</label>
+                <input id="mandelbrot-iter" type="number" min="50" max="5000" value="800" style="width:80px" />
+                <button onclick="mandelbrot()">
+                    Generate Mandelbrot
+                </button>
+            </span>
+
+            <span>
                 <button onclick="clearBoard()">
                     Clear
                 </button>
